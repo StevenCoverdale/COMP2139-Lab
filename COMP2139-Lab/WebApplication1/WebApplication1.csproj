@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\ProjectTask\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Areas\ProjectManagement\Views\ProjectTask\Index.cshtml" />
+    <AdditionalFiles Include="Areas\ProjectManagement\Views\Project\Create.cshtml" />
+    <AdditionalFiles Include="Areas\ProjectManagement\Views\Project\Delete.cshtml" />
+    <AdditionalFiles Include="Areas\ProjectManagement\Views\Project\Details.cshtml" />
+    <AdditionalFiles Include="Areas\ProjectManagement\Views\Project\Edit.cshtml" />
+    <AdditionalFiles Include="Areas\ProjectManagement\Views\Project\Index.cshtml" />
+  </ItemGroup>
+
+</Project>
