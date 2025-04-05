@@ -12,6 +12,7 @@ namespace WebApplication1.Areas.ProjectManagement.Controllers;
 public class ProjectController : Controller
 {
     private readonly ApplicationDbContext _context;
+    private readonly ILogger<ProjectController> _logger;
 
     public ProjectController(ApplicationDbContext context)
     {
@@ -22,6 +23,8 @@ public class ProjectController : Controller
     [Route("")]
     public async Task<IActionResult> Index()
     {
+        //_logger.LogTrace("Accessed Home Index");
+
         var projects = await _context.Projects.ToListAsync();
         return View(projects);
     }
@@ -30,6 +33,8 @@ public class ProjectController : Controller
     [Route("Create")]
     public IActionResult Create()
     {
+        _logger.LogTrace("Accessed Create at {time}", DateTime.Now);
+
         return View();
     }
     
@@ -40,6 +45,9 @@ public class ProjectController : Controller
         {
             if (ModelState.IsValid)
             {
+                //_logger.LogTrace("Accessed Create at {time}", DateTime.Now);
+
+                
                 project.StartDate = project.StartDate.ToUniversalTime();  
                 project.EndDate = project.EndDate.ToUniversalTime();
                 _context.Projects.Add(project);
@@ -56,6 +64,8 @@ public class ProjectController : Controller
         [Route("Details/{id:int}")]
         public async Task<IActionResult> Details(int id)
      {
+         //_logger.LogTrace("Accessed Details at {time}", DateTime.Now);
+
          //Database: Retrieve project from  database
          var project = await _context.Projects.FirstOrDefaultAsync(p => p.ProjectId == id);
          if (project == null)
@@ -71,6 +81,8 @@ public class ProjectController : Controller
     [Route("Edit/{id:int}")]
      public async Task<IActionResult> Edit(int id)
      {
+         //_logger.LogTrace("Accessed Edit at {time}", DateTime.Now);
+         
          //Returns project or null
          var project = await _context.Projects.FindAsync(id);
          if (project == null)

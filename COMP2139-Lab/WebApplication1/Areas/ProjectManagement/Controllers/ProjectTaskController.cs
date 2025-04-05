@@ -10,6 +10,7 @@ namespace WebApplication1.Areas.ProjectManagement.Controllers;
 public class ProjectTaskController: Controller
 {
     public readonly ApplicationDbContext _context;
+    private readonly ILogger<ProjectTaskController> _logger;
 
     public ProjectTaskController(ApplicationDbContext context)
     {
@@ -18,6 +19,8 @@ public class ProjectTaskController: Controller
     [HttpGet("Index/{projectId:int}")]
     public IActionResult Index(int projectId)
     {
+        //_logger.LogTrace("Accessed Home Index at {time}", DateTime.Now);
+        
         var tasks = _context.Tasks.Where(t => t.ProjectId == projectId).ToList();
         ViewBag.ProjectId = projectId;
         return View(tasks);
@@ -25,6 +28,8 @@ public class ProjectTaskController: Controller
     [HttpGet("Details/{id:int}")]
     public async Task<IActionResult> Details(int id)
     {
+        //_logger.LogTrace("Accessed Details at {time}", DateTime.Now);
+
         var task = await _context.
             Tasks.
             Include(t=>t.Project).
@@ -39,6 +44,8 @@ public class ProjectTaskController: Controller
     [HttpGet("Create/{projectId:int}")]
     public async Task<IActionResult> Create(int projectId)
     {
+        //_logger.LogTrace("Accessed Create at {time}", DateTime.Now);
+
         var projects = await _context.Projects.FindAsync(projectId);
         if (projects == null)
         {
@@ -71,6 +78,8 @@ public class ProjectTaskController: Controller
     [HttpGet("Edit/{id:int}")]
     public IActionResult Edit(int id)
     {
+        //_logger.LogTrace("Accessed Edit at {time}", DateTime.Now);
+
         var task = _context.Tasks.Include(t=>t.Project).FirstOrDefault(t => t.ProjectTaskId == id);
         if (task == null)
         {
@@ -100,6 +109,8 @@ public class ProjectTaskController: Controller
     [HttpGet("Delete/{id:int}")] 
     public IActionResult Delete(int id)
     {
+        //_logger.LogTrace("Accessed Delete at {time}", DateTime.Now);
+
         var task = _context.Tasks.Include(t=>t.Project).FirstOrDefault(t => t.ProjectTaskId == id);
         if (task == null)
         {
@@ -128,6 +139,8 @@ public class ProjectTaskController: Controller
     [HttpGet("Search")]
     public async Task<IActionResult> Search(int? projectId, string searchString)
     {
+        //_logger.LogTrace("Accessed Search at {time}", DateTime.Now);
+
         var tasksQuery = _context.Tasks.AsQueryable();
         if (projectId.HasValue)
         {
